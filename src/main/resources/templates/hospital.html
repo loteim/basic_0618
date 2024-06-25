@@ -1,0 +1,30 @@
+<style>
+  .active{background-color: aqua;}
+</style>
+
+<table border="1">
+    <tr>
+      <td>번호</td><td>시군구</td><td>병원명</td><td>진료과</td>
+      <td>병실수</td><td>연락처</td><td>주소</td>
+    </tr>
+    <tr th:each="h : ${list}">
+      <td th:text="${h.id}"></td>
+      <td th:text="${h.sido}"></td>
+      <td th:text="${h.name}"></td>
+      <td th:text="${h.medical}"></td>
+      <td th:text="${h.room}"></td>
+      <td th:text="${h.tel}"></td>
+      <td th:text="${h.address}"></td>
+    </tr>
+  </table>
+
+<a th:if="${page > 10}" th:href="@{/html/hospital(page=${page - 10})}" th:text="[이전]"></a>
+
+<th:block th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+<a th:if="${pageNumber != page}" th:href="@{/html/hospital(page=${pageNumber})}" th:text="${pageNumber}"></a>
+<span th:unless="${pageNumber != page}" th:text="${pageNumber}"></span>
+</th:block>
+
+<th:block  th:if="${endPage < totalPage}">
+<a th:href="@{|/html/hospital?page=${page + 10}|}" th:text="[다음]"></a>
+</th:block>

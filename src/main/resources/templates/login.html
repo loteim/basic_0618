@@ -1,0 +1,26 @@
+<form action="/login" method="post">
+    ID : <input type="text" name="userId"><br>
+    PW : <input type="password" name="userPw"><br>
+    <input type="submit" value="로그인">
+</form>
+<script>
+    const submit = document.querySelector('[type=submit]');
+    const id = document.querySelector('[name=userId]');
+    const pw = document.querySelector('[name=userPw]');
+    submit.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const obj = { 'userId': id.value, 'userPw': pw.value};
+        const json = JSON.stringify(obj);
+
+        const url = '/login';
+        const res = await fetch(url, {
+            method: 'post',
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            body: json
+        });
+      const data = await res.json(); //res.text();
+      alert(data.msg);
+    });
+</script>

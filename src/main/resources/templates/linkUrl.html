@@ -1,0 +1,12 @@
+<style>
+    .active{background-color: aqua;}
+</style>
+
+<a th:if="${page > 10}" th:href="@{/linkUrl(page=${page - 10})}" th:text="[이전]"></a>
+
+<th:block th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+<a th:if="${pageNumber != page}" th:href="@{/linkUrl(page=${pageNumber})}" th:text="${pageNumber}"></a>
+<span th:unless="${pageNumber != page}" th:text="${pageNumber}"></span>
+</th:block>
+
+<a th:href="@{|/linkUrl?page=${page + 10}|}" th:text="[다음]"></a>
